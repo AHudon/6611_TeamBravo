@@ -2,6 +2,7 @@ package view;
 
 import java.lang.reflect.InvocationTargetException;
 
+import metrics.AIF;
 import metrics.LCOM;
 import metrics.MIF;
 
@@ -110,7 +111,7 @@ public class MetricsAction  implements IObjectActionDelegate {
 						SystemObject system = ASTReader.getSystemObject();
 						//LCOM lcom = new LCOM(system);
 						//System.out.print(lcom.toString());
-						MIF mif = new MIF(system);
+						AIF mif = new AIF(system);
 						System.out.println(mif.toString());
 						
 						if(selectedPackageFragmentRoot != null) {
