@@ -3,6 +3,7 @@ package view;
 import java.lang.reflect.InvocationTargetException;
 
 import metrics.LCOM;
+import metrics.MIF;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -107,8 +108,10 @@ public class MetricsAction  implements IObjectActionDelegate {
 							new ASTReader(selectedProject, monitor);
 						}
 						SystemObject system = ASTReader.getSystemObject();
-						LCOM lcom = new LCOM(system);
-						System.out.print(lcom.toString());
+						//LCOM lcom = new LCOM(system);
+						//System.out.print(lcom.toString());
+						MIF mif = new MIF(system);
+						System.out.println(mif.toString());
 						
 						if(selectedPackageFragmentRoot != null) {
 							// package fragment root selected

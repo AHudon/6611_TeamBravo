@@ -17,10 +17,10 @@ public class LCOM {
 
 	public LCOM(SystemObject system) {
 		cohesionMap = new HashMap<String, Integer>();
-		
 		Set<ClassObject> classes = system.getClassObjects();
 		
 		for(ClassObject classObject : classes) {
+	
 			int cohesion = computeCohesion(classObject);
 			if(cohesion != -1) {
 				cohesionMap.put(classObject.getName(), cohesion);
