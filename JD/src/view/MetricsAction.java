@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import metrics.AIF;
 import metrics.LCOM;
 import metrics.MIF;
+import metrics.PF;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -111,7 +112,7 @@ public class MetricsAction  implements IObjectActionDelegate {
 						SystemObject system = ASTReader.getSystemObject();
 						//LCOM lcom = new LCOM(system);
 						//System.out.print(lcom.toString());
-						AIF mif = new AIF(system);
+						PF mif = new PF(system);
 						System.out.println(mif.toString());
 						
 						if(selectedPackageFragmentRoot != null) {
