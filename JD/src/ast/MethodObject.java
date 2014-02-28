@@ -299,6 +299,22 @@ public class MethodObject implements AbstractMethodDeclaration {
     	return overridesMethod(typeBindings);
     }
 
+    public boolean overridesMethod(SystemObject system) {
+    	IMethodBinding methodBinding = getMethodDeclaration().resolveBinding();
+    	ITypeBinding declaringClassTypeBinding = methodBinding.getDeclaringClass();
+    	Set<ITypeBinding> typeBindings = new LinkedHashSet<ITypeBinding>();
+    	ITypeBinding superClassTypeBinding = declaringClassTypeBinding.getSuperclass();
+    	if(superClassTypeBinding != null && system.getClassObject(superClassTypeBinding.getQualifiedName())!=null)
+    		typeBindings.add(superClassTypeBinding);
+    	ITypeBinding[] interfaceTypeBindings = declaringClassTypeBinding.getInterfaces();
+    	for(ITypeBinding interfaceTypeBinding : interfaceTypeBindings)
+    	{
+    		if(system.getClassObject(interfaceTypeBinding.getQualifiedName())!=null)
+    		typeBindings.add(interfaceTypeBinding);
+    	}
+    	return overridesMethod(typeBindings);
+    }
+    
     private boolean overridesMethod(Set<ITypeBinding> typeBindings) {
     	IMethodBinding methodBinding = getMethodDeclaration().resolveBinding();
     	Set<ITypeBinding> superTypeBindings = new LinkedHashSet<ITypeBinding>();

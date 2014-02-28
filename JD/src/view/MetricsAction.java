@@ -110,10 +110,12 @@ public class MetricsAction  implements IObjectActionDelegate {
 							new ASTReader(selectedProject, monitor);
 						}
 						SystemObject system = ASTReader.getSystemObject();
-						//LCOM lcom = new LCOM(system);
-						//System.out.print(lcom.toString());
-						PF mif = new PF(system);
+						MIF mif = new MIF(system);
 						System.out.println(mif.toString());
+						AIF aif = new AIF(system);
+						System.out.println(aif.toString());
+						PF pf = new PF(system);
+						System.out.println(pf.toString());
 						
 						if(selectedPackageFragmentRoot != null) {
 							// package fragment root selected

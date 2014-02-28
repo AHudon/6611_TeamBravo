@@ -18,10 +18,11 @@ public class PF {
 
 	int sumOfOveriddingMethods=0;
 	int sumOfNewMethodsTimesDescendingClasses=0;
-	
+	SystemObject systemObject;
 	Set<ClassObject> classes;
 	public PF(SystemObject system){
 		
+		systemObject=system;
 		classes = system.getClassObjects();
 		
 		for(ClassObject classObject : classes){
@@ -38,7 +39,7 @@ public class PF {
 		
 		for(MethodObject methodObject : listOfMethods){
 			
-			if(methodObject.overridesMethod()){
+			if(methodObject.overridesMethod(systemObject)){
 				overiddingMethodsCounter++;
 			}
 			
@@ -80,12 +81,13 @@ public class PF {
 		
 		for(ClassObject currentClassObject : classes){
 			
-			
 			try
 			{
-				if(currentClassObject.getSuperclass().toString().equals(classObject.getName().toString())){
+				if(currentClassObject.getSuperclassList().contains(classObject.getName()))
+				{
 					descendantsCounter++;
 				}
+				
 			}
 			catch(NullPointerException e)
 			{

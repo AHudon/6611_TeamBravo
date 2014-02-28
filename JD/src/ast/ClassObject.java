@@ -268,6 +268,17 @@ public class ClassObject {
 		superclassList.add(superclass);
 		return superclassList.listIterator();
 	}
+    
+    public List<String> getSuperclassList() {
+
+ 		List<String> superClassTypes = new ArrayList<String>();
+ 		for(TypeObject typeObject: interfaceList){
+ 			superClassTypes.add(typeObject.getClassType());
+ 		}
+ 		superClassTypes.add(superclass.getClassType());
+ 	
+ 		return superClassTypes;
+ 	}
 
 	public ListIterator<FieldObject> getFieldIterator() {
 		return fieldList.listIterator();

@@ -36,13 +36,13 @@ public class AIF {
 	
 	public int getNumberOfAttributesInheritedInActiveClass(ClassObject classObject)
 	{
-		int numOfInheritedAttributes =0;
-				System.out.println("******"+classObject.getName()+"********");
+		
+
 		List<FieldObject> attributes =classObject.getFieldList();
 		ArrayList<String> formattedAttributes = new ArrayList<String>();
 		Set<String> formattedParentAttributes = new LinkedHashSet<String>();
 		ClassObject subClassObject = classObject;
-		Set<FieldObject> accessibleParentAttributes = new LinkedHashSet<FieldObject>();
+		
 		
 		for(FieldObject fieldObject: attributes){
 
@@ -74,9 +74,6 @@ public class AIF {
 				 initialSize--;
 			 }
 		 }
-          
-		 System.out.println(formattedAttributes);
-		 System.out.println(formattedParentAttributes);
 
 		return initialSize;
 		
