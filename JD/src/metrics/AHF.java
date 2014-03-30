@@ -31,7 +31,6 @@ public class AHF {
 	
 	Set<ClassObject> classes;
 	Map <String,Integer> pkgClasses = new HashMap<String,Integer>();
-	
 	Map <String,Integer> baseClasses = new HashMap<String,Integer>();
 		
 	int totalAttributes = 0;
@@ -64,8 +63,7 @@ public class AHF {
 	}
 	
 	private void getClassAttributeVisibility(ClassObject classObject)
-	{
-				
+	{				
 		List<FieldObject> attributes = classObject.getFieldList();
 		
 		for(FieldObject fieldObject: attributes)
@@ -75,14 +73,10 @@ public class AHF {
 			Access fieldAccess = fieldObject.getAccess();
 		
 	        String fieldType = fieldAccess.toString();        
-	        
-		
-           attrVisibilty = attrVisibilty + (1d - ((double)numberofClassCallAttribute(fieldType, classObject)/classSizeExculdingContainerClass));		
+	       	
+            attrVisibilty = attrVisibilty + (1d - ((double)numberofClassCallAttribute(fieldType, classObject)/classSizeExculdingContainerClass));		
 		
 		}	
-		
-			
-	
 	}
 	
 	private double numberofClassCallAttribute(String fieldType, ClassObject classObject)
@@ -112,8 +106,7 @@ public class AHF {
 	{
 		int index = classObject.getIFile().getFullPath().toString().lastIndexOf("/");		
 		String pkgPath = classObject.getIFile().getFullPath().toString().substring(0, index);
-		
-		
+			
 		if(pkgClasses.containsKey(pkgPath))
 		{					
 			pkgClasses.put(pkgPath, pkgClasses.get(pkgPath) + 1);				
@@ -178,9 +171,7 @@ public class AHF {
 					System.out.println("Outside Package base Class New:" + " "  + superClassName);
 					baseClasses.put(superClassName, 1);					
 				}	
-			}	
-			
-			//System.out.println("Super Class Name : " + classObject.getSuperclass().getClassType());					
+			}				
 							
 			}
 			catch(NullPointerException e)
@@ -212,10 +203,7 @@ public class AHF {
 	
 	public String toString(){
 		return "\nAHF for parsed project: "+ getAHFValue() + " %";
-	}
-	   
-
-
+	}	   
 }
 	
 	
