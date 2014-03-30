@@ -1,6 +1,6 @@
 /**
  * Team Bravo, SOEN 6611 Winter 2014
- * Author: Akash Kanaujia (6560180)
+ * @author: Akash Kanaujia (6560180)
  * Attribute Hiding Factor(AHF)
  * */
 
@@ -20,6 +20,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.*;
 
+import ast.ASTReader;
 import ast.Access;
 import ast.ClassObject;
 import ast.FieldObject;
@@ -27,11 +28,12 @@ import ast.SystemObject;
 import ast.TypeObject;
 
 public class AHF {
-	//private SystemObject system;
+	
 	Set<ClassObject> classes;
-	Map <String,Integer> subClasses = new HashMap<String,Integer>();
-	List<String> pkgClasses = new ArrayList<String>();
-	int pkgClassCount = 0;
+	Map <String,Integer> pkgClasses = new HashMap<String,Integer>();
+	
+	Map <String,Integer> baseClasses = new HashMap<String,Integer>();
+		
 	int totalAttributes = 0;
 	double attrVisibilty = 0;
 	double AHFPercentage = 0;
@@ -40,13 +42,13 @@ public class AHF {
 		
 	public AHF(SystemObject system)
 	{
-		//this.system = system;
 		this.classes = system.getClassObjects();		
 		attrVisibilty = 0;
 		classSizeExculdingContainerClass = (double)classes.size() - 1d;
 		
-		for(ClassObject classObject : classes){
-		
+		for(ClassObject classObject : classes){	 
+						
+			getSuperClass(classObject);
 			getAllPackages(classObject);
 		}
 		
@@ -63,8 +65,7 @@ public class AHF {
 	
 	private void getClassAttributeVisibility(ClassObject classObject)
 	{
-		//pkgClassCount = getNumberOfClassesInPackage(classObject.getClass().getPackage());
-		
+				
 		List<FieldObject> attributes = classObject.getFieldList();
 		
 		for(FieldObject fieldObject: attributes)
@@ -98,7 +99,7 @@ public class AHF {
         	  return 0d;        	  
         	  
           case "protected":
-        	 return  (double)getPackageClassCount(classObject) - 1d;
+        	 return (double)((getPackageClassCount(classObject) - 1d) + getBaseClassCountWithOutPackageBaseClass(classObject));
         			 
           default: return 0;
 		}
@@ -109,21 +110,18 @@ public class AHF {
 	
 	private void getAllPackages(ClassObject classObject)
 	{
-		int index = classObject.getIFile().getFullPath().toString().lastIndexOf("/");
-		//String[] pkgNameArray = classObject.getIFile().getFullPath().toString().substring(0, index);
+		int index = classObject.getIFile().getFullPath().toString().lastIndexOf("/");		
 		String pkgPath = classObject.getIFile().getFullPath().toString().substring(0, index);
 		
-		System.out.println(pkgPath);
-		 
 		
-		if(subClasses.containsKey(pkgPath))
+		if(pkgClasses.containsKey(pkgPath))
 		{					
-			subClasses.put(pkgPath, subClasses.get(pkgPath) + 1);				
+			pkgClasses.put(pkgPath, pkgClasses.get(pkgPath) + 1);				
 		
 		}
 		else
 		{			
-			subClasses.put(pkgPath, 1);
+			pkgClasses.put(pkgPath, 1);
 			
 		}	
 
@@ -131,11 +129,10 @@ public class AHF {
 	
 	private int getPackageClassCount(ClassObject classObject)
 	{
-		int index = classObject.getIFile().getFullPath().toString().lastIndexOf("/");
-		//String[] pkgNameArray = classObject.getIFile().getFullPath().toString().substring(0, index);
+		int index = classObject.getIFile().getFullPath().toString().lastIndexOf("/");	
 		String pkgPath = classObject.getIFile().getFullPath().toString().substring(0, index);
 	
-		return subClasses.get(pkgPath);
+		return pkgClasses.get(pkgPath);
 	}
 	
 	
@@ -146,6 +143,72 @@ public class AHF {
 		return AHF;
 		
 	}
+	
+	
+     public void getSuperClass(ClassObject classObject){
+		
+		try
+			{
+			
+			//Compare Package of Super class and base class
+			// In case package is same, the package visibility will handle visibility factor
+			// If not in same package we will increase visibility factor by one for protected modifier
+			
+			int baseIndex = classObject.getIFile().getFullPath().toString().lastIndexOf("/");		
+			String pkgBasePath = classObject.getIFile().getFullPath().toString().substring(0, baseIndex);
+			
+			//Getting Super class object
+			ClassObject superclassObject = ASTReader.getSystemObject().getClassObject(classObject.getSuperclass().getClassType());
+			
+			int superIndex = superclassObject.getIFile().getFullPath().toString().lastIndexOf("/");	
+			String pkgSuperPath = superclassObject.getIFile().getFullPath().toString().substring(0, superIndex);
+			
+			if(!pkgBasePath.equals(pkgSuperPath))
+			{							
+				String superClassName = classObject.getSuperclass().getClassType();								
+								
+				if(baseClasses.containsKey(superClassName))
+				{					
+					System.out.println("Outside Package base Class Incremental:" + " " + superClassName);
+					baseClasses.put(superClassName, baseClasses.get(superClassName) + 1);				
+				
+				}
+				else
+				{					
+					System.out.println("Outside Package base Class New:" + " "  + superClassName);
+					baseClasses.put(superClassName, 1);					
+				}	
+			}	
+			
+			//System.out.println("Super Class Name : " + classObject.getSuperclass().getClassType());					
+							
+			}
+			catch(NullPointerException e)
+			{
+				
+			}				
+		
+	}
+     
+     private int getBaseClassCountWithOutPackageBaseClass(ClassObject classObject)
+     {   	 
+    	 
+    	 try
+    	 {
+    	   if(baseClasses.containsKey(classObject.getName()))
+    	  {
+    		 // System.out.println("Base Class Number:" + baseClasses.get(classObject.getName()).toString());
+    		  return baseClasses.get(classObject.getName());
+    	   }
+    	 }
+    	 catch(NullPointerException e)
+    	{
+    		return 0;
+    	 }
+    	 
+    	 return 0;
+     }
+	
 	
 	public String toString(){
 		return "\nAHF for parsed project: "+ getAHFValue() + " %";
