@@ -3,7 +3,6 @@ package view;
 import java.lang.reflect.InvocationTargetException;
 
 import metrics.AIF;
-import metrics.LCOM;
 import metrics.MIF;
 import metrics.PF;
 
