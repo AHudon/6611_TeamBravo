@@ -1,6 +1,10 @@
 /**
  * Team Bravo, SOEN 6611 Winter 2014
- * Attribute Hiding Factor Metric
+ * Attribute Inheritance Factor Metric
+ * @author Alexandre Hudon
+ * @date February 17th, 2014
+ * 
+ * Attribute Inheritance Factor gives information about the use of overriding versus not declaring any attribute (redundancy in inheritance).
  */
 
 package metrics;
@@ -15,6 +19,7 @@ import ast.FieldObject;
 import ast.SystemObject;
 
 public class AIF {
+	
 	private int totalNumberOfAttributesInheritedForEachClassObject;
 	private int totalNumberOfAttributesInheritedAndDeclaredForEachClassObject;
 	private SystemObject system;
@@ -29,15 +34,13 @@ public class AIF {
 			totalNumberOfAttributesInheritedForEachClassObject+=numOfInheritedAttributesInActiveClassObject;
 			int numOfDeclaredAttributesInActiveClassObject=getNumberOfAttributesDeclaredInActiveClass(classObject);
 			totalNumberOfAttributesInheritedAndDeclaredForEachClassObject+=(numOfInheritedAttributesInActiveClassObject+numOfDeclaredAttributesInActiveClassObject);		
-		
-	}
 		}
+	}
 	
 	
 	public int getNumberOfAttributesInheritedInActiveClass(ClassObject classObject)
 	{
 		
-
 		List<FieldObject> attributes =classObject.getFieldList();
 		ArrayList<String> formattedAttributes = new ArrayList<String>();
 		Set<String> formattedParentAttributes = new LinkedHashSet<String>();
@@ -48,7 +51,6 @@ public class AIF {
 
 				formattedAttributes.add(fieldObject.getType().toString()+fieldObject.getName());			
 		}
-		
 		
 		 while((subClassObject.getSuperclass()!=null) && (system.getClassObject(subClassObject.getSuperclass().getClassType()))!=null){
 		 
@@ -75,8 +77,7 @@ public class AIF {
 			 }
 		 }
 
-		return initialSize;
-		
+		return initialSize;	
 	}
 	
 	public int getNumberOfAttributesDeclaredInActiveClass(ClassObject classObject)
