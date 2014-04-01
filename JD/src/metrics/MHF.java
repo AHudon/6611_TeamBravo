@@ -6,26 +6,16 @@
 
 package metrics;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-import java.util.*;
-
 import ast.ASTReader;
 import ast.Access;
 import ast.ClassObject;
 import ast.MethodObject;
 import ast.SystemObject;
-import ast.TypeObject;
+
 
 public class MHF {
 	

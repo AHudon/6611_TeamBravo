@@ -85,12 +85,12 @@ public class MIF {
 
 	public double getMIF(){
 
-		return ((double)totalNumberOfMethodsInheritedForEachClassObject/totalNumberOfMethodsInheritedAndDeclaredForEachClassObject);
+		return 100*((double)totalNumberOfMethodsInheritedForEachClassObject/totalNumberOfMethodsInheritedAndDeclaredForEachClassObject);
 				
 	}
 	
 	public String toString(){
-		return "\nMIF for parsed project: "+ getMIF();
+		return "\nMIF for parsed project: "+ getMIF()+ " %";
 	}
 	
 }

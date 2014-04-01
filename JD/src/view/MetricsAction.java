@@ -1,9 +1,13 @@
 package view;
 
+import io.LogMetric;
+
 import java.lang.reflect.InvocationTargetException;
 
+import metrics.AHF;
 import metrics.AIF;
 import metrics.CF;
+import metrics.MHF;
 import metrics.MIF;
 import metrics.PF;
 
@@ -110,9 +114,29 @@ public class MetricsAction  implements IObjectActionDelegate {
 							new ASTReader(selectedProject, monitor);
 						}
 						SystemObject system = ASTReader.getSystemObject();
-
-						CF pf = new CF(system);
-						//System.out.println(pf.toString());
+						
+						LogMetric.StartParsingSequence();
+						CF cf = new CF(system);
+						LogMetric.LogMetricEvent(cf.toString());
+						
+						PF pf = new PF(system);
+						LogMetric.LogMetricEvent(pf.toString());
+						
+						AHF ahf = new AHF(system);
+						LogMetric.LogMetricEvent(ahf.toString());
+						
+						AIF aif = new AIF(system);
+						LogMetric.LogMetricEvent(aif.toString());
+						
+						MIF mif = new MIF(system);
+						LogMetric.LogMetricEvent(mif.toString());
+						
+						MHF mhf = new MHF(system);
+						LogMetric.LogMetricEvent(mhf.toString());
+						
+						LogMetric.CloseParsingSequence();
+						
+						System.out.println("Parsing completed! See MOODMetric.txt");
 						
 						if(selectedPackageFragmentRoot != null) {
 							// package fragment root selected

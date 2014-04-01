@@ -87,12 +87,12 @@ public class AIF {
 
 	public double getAIF(){
 
-		return ((double)totalNumberOfAttributesInheritedForEachClassObject/totalNumberOfAttributesInheritedAndDeclaredForEachClassObject);
+		return 100 * ((double)totalNumberOfAttributesInheritedForEachClassObject/totalNumberOfAttributesInheritedAndDeclaredForEachClassObject);
 				
 	}
 	
 	public String toString(){
-		return "\nAIF for parsed project: "+ getAIF();
+		return "\nAIF for parsed project: "+ getAIF() + " %";
 	}
 	
 }

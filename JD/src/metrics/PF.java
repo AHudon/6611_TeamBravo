@@ -100,11 +100,11 @@ public class PF {
 	
 	
 	public double getPF(){
-		return ((double)sumOfOveriddingMethods/sumOfNewMethodsTimesDescendingClasses);
+		return 100 * ((double)sumOfOveriddingMethods/sumOfNewMethodsTimesDescendingClasses);
 	}
 	
 	public String toString(){
-		return "\nPF for parsed project: "+ getPF();
+		return "\nPF for parsed project: "+ getPF() + " %";
 	}
 	
 }

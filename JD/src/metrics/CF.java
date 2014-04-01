@@ -71,10 +71,10 @@ public class CF {
 	}
 	
 	public double getCF(){
-		return numerator/metricDenominator;
+		return 100*(numerator/metricDenominator);
 	}
 	
 	public String toString(){
-		return "\nCF for parsed project: "+ getCF();
+		return "\nCF for parsed project: "+ getCF()+ " %";
 	}
 }
