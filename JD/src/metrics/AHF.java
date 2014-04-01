@@ -162,13 +162,13 @@ public class AHF {
 								
 				if(baseClasses.containsKey(superClassName))
 				{					
-					System.out.println("Outside Package base Class Incremental:" + " " + superClassName);
+					//System.out.println("Outside Package base Class Incremental:" + " " + superClassName);
 					baseClasses.put(superClassName, baseClasses.get(superClassName) + 1);				
 				
 				}
 				else
 				{					
-					System.out.println("Outside Package base Class New:" + " "  + superClassName);
+					//System.out.println("Outside Package base Class New:" + " "  + superClassName);
 					baseClasses.put(superClassName, 1);					
 				}	
 			}				
