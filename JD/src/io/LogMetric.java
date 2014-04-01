@@ -1,3 +1,11 @@
+/**
+ * Team Bravo, SOEN 6611 Winter 2014
+ * LogMetric
+ * @author Alexandre Hudon
+ * @date March 31st, 2014
+ * 
+ * This class is used to log parsed metrics during a run into a file named MOODMetrics.txt
+ */
 package io;
 
 import java.io.BufferedWriter;
